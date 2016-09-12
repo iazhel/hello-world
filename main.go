@@ -13,7 +13,7 @@ func main() {
 	var VSSDDevices []string
 	VSSDCount := 0
 	out, err := exec.Command("ls", "/dev/").Output()
-	//	fmt.Printf("ls OUT:%s\n", out)
+	fmt.Printf("ls OUT:%s\n", strings.Split(string(out), "\n"))
 	fmt.Printf("ls Err:%s\n", err)
 	if err == nil {
 		re := regexp.MustCompile("nvme[0-9].")
