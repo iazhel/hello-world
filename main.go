@@ -16,7 +16,7 @@ func main() {
 	fmt.Printf("ls OUT:%s\n", strings.Split(string(out), "\n"))
 	fmt.Printf("ls Err:%s\n", err)
 	if err == nil {
-		re := regexp.MustCompile("nvme[0-9].")
+		re := regexp.MustCompile("nvme[0-9][a-z].")
 		VSSDDevices = (re.FindAllString(string(out), -1))
 		VSSDCount = len(VSSDDevices)
 		fmt.Println("VSSDDevices:", VSSDDevices)
@@ -25,7 +25,7 @@ func main() {
 	if VSSDCount != 0 {
 		devName := VSSDDevices[0]
 		// run script to find firmvare
-		out, err = exec.Command("/mnt/filer/zuari/tools/vssd_tools/nvmeredrive", "-GL", "-d", "/dev/"+devName).Output()
+		out, err = exec.Command("/mnt/filer/zuari/tools/vssd_tools/nvmeredrive", "-GL", "-d", "/dev/" + devName, "-f").Output()
 		fmt.Printf("mnt OUT:%s\n", out)
 		fmt.Printf("mnt Err:%v\n", err)
 		if err == nil {
