@@ -3,7 +3,9 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"os/exec"
+	"path"
 	"strconv"
 	"strings"
 )
@@ -21,8 +23,17 @@ func main() {
 
 func CpuChecker() (float64, error) {
 
-	c1 := exec.Command("./cpu.bash")
+	pwd, err := os.Getwd()
+	if err != nil {
+		fmt.Println("error path:", err)
+		return 0, err
+	}
 
+	dir, _ := path.Split(os.Args[0])
+	filePath := path.Join(pwd, dir, "cpu.bash")
+	fmt.Println("CPU script filePath:", filePath)
+
+	c1 := exec.Command(filePath)
 	var b2 bytes.Buffer
 	c1.Stdout = &b2
 
